@@ -1,0 +1,299 @@
+.outer-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.query-example-container {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+
+  max-height: 50%;
+  overflow-y: scroll;
+}
+
+.target-highlight {
+  background: var(--lit-cyea-100);
+  border-bottom: 1px solid var(--lit-cyea-400);
+}
+
+.prompt-highlight {
+  background: var(--lit-mage-200);
+  border-bottom: 1px solid var(--lit-mage-400);
+}
+
+.example-header {
+  font-size: larger;
+  margin: 15px 0;
+  width: fit-content;
+
+  .prompt-text::selection {
+    /* var(--lit-mage-200) does not work for some reason, so hard-code it */
+    background-color: #FED5E0;
+  }
+
+  .target-text {
+    color: var(--lit-cyea-700);
+    border: 2px solid var(--lit-cyea-400);
+    border-radius: 4px;
+    padding: 0 2px;
+
+    cursor: pointer;
+    user-select: none; /* don't mess with the prompt selection */
+  }
+}
+
+.data-grid {
+  display: grid;
+  gap: 4px;
+
+  /* pad children instead of using a larger gap */
+  /* this is so we can do nice background highlight on subgrid areas */
+  > * {
+    padding: 3px;
+  }
+
+  label {
+    font-weight: 700;
+    color: var(--lit-neutral-800);
+  }
+
+  .value-missing {
+    color: var(--lit-neutral-500);
+    font-style: italic;
+  }
+}
+
+.example-grid {
+  padding: 10px 0;
+
+  display: grid;
+  grid-template-rows: repeat(6, min-content) 1fr;
+  grid-template-columns: max-content minmax(400px, 1fr) minmax(100px, 2fr);
+
+  .example-attribute {
+    grid-row: auto;
+    grid-column: span 2;
+
+    display: grid;
+    grid-template: auto / subgrid;
+    gap: 10px;
+
+    label {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .value {
+      grid-row: 1;
+      grid-column: 2;
+
+      white-space: pre-wrap;
+    }
+  }
+
+  .example-samples {
+    grid-row: 1 / -1;
+    grid-column: 3;
+    margin-left: 10px; /* extra gap */
+
+    display: grid;
+    grid-template: subgrid / auto;
+    gap: 10px;
+
+    label {
+      cursor: pointer;
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .value {
+      grid-row: 2 / -1;
+      grid-column: 1;
+    }
+  }
+}
+
+.proponents-sxs-container {
+  overflow-y: scroll;
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+
+  .vbar {
+    background: #ccc;
+    width: 2px;
+  }
+
+  .proponents {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-right: 5px;
+
+    &.sxs {
+      padding-right: 0px;
+      padding-left: 5px;
+      /* background: #f8f8f8; */
+    }
+  }
+}
+
+.proponents-header {
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+
+  > :first-child {
+    font-weight: 700;
+    font-size: larger;
+    margin-right: 12px;
+  }
+
+  .scroll-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    margin-right: 10px;
+  }
+}
+
+.selector-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .chips-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    label:first-child {
+      width: 80px;
+      font-size: smaller;
+    }
+  }
+
+  .chips-holder {
+    display: contents;
+  }
+
+  /* If there is only one row of chips, we can use a more relaxed spacing */
+  &:has(:only-child) {
+    .chips-row {
+      gap: 8px;
+
+      label:first-child {
+        width: 100px;
+        font-size: small;
+      }
+    }
+
+    .proponent-chip {
+      line-height: 20px;
+      font-size: small;
+    }
+  }
+}
+
+/* TODO use LIT button style? */
+.proponent-chip {
+  min-width: 32px;
+  line-height: 16px;
+  font-size: smaller;
+  text-align: center;
+  cursor: pointer;
+
+  background: var(--chip-color);
+  border: 1px solid var(--lit-neutral-700);
+  border-radius: 4px;
+}
+
+.proponent-correct {
+  background: var(--viz-color-blue-2);
+}
+
+.proponent-list {
+  overflow-y: scroll;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 16px; /* avoid clipping of borders */
+}
+
+.proponent-grid {
+  padding: 8px;
+  border: 1px solid var(--lit-neutral-400);
+  border-radius: 8px;
+
+  grid-template-rows: repeat(3, min-content) 1fr;
+  grid-template-columns: max-content 80px minmax(300px, 8fr);
+
+  .proponent-attribute {
+    grid-row: auto;
+    grid-column: span 2;
+    align-self: start;
+
+    border-radius: 4px;
+
+    display: grid;
+    grid-template: auto / subgrid;
+    gap: 10px;
+
+    label {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .value {
+      grid-row: 1;
+      grid-column: 2;
+
+      &.numeric {
+        text-align: right;
+      }
+    }
+  }
+
+  .proponent-text {
+    grid-row: 1 / -2;
+    grid-column: 3;
+    margin-left: 10px; /* extra gap */
+
+    display: grid;
+    grid-template: subgrid / auto;
+    gap: 10px;
+
+    label {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .value {
+      grid-row: 2 / -1;
+      grid-column: 1;
+
+      max-height: 500px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+
+      padding-bottom: 2px; /* avoid clip or scroll from span highlights */
+    }
+  }
+}

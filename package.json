@@ -1,0 +1,31 @@
+{
+  "name": "tda-demo",
+  "version": "1.0.0",
+  "description": "Data view for training data attribution (TDA).",
+  "repository": "github:PAIR-code/pretraining-tda",
+  "main": "demo/index.ts",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+      "build": "node build.mjs && cp -R demo/static/* dist/",
+      "website": "npm run build && mkdir -p docs/demo/ && cp -R ./dist/* ./docs/demo",
+      "serve": "web-dev-server --open --root-dir ./dist",
+      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+      "@adobe/lit-mobx": "2.2.2",
+      "@material/web": "2.2.0",
+      "d3": "7.9.0",
+      "lit": "3.1.3",
+      "mobx": "5.15.4"
+  },
+  "devDependencies": {
+      "@types/d3": "5.7.2",
+      "@web/dev-server": "^0.4.6",
+      "esbuild": "0.20.2",
+      "esbuild-plugin-lit-css": "3.0.0"
+  }
+}
