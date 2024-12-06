@@ -1,14 +1,12 @@
 # Scalable Influence and Fact Tracing for Large Language Model Pretraining
 
-This repo contains data files and demo code for our paper, [Scalable Influence
-and Fact Tracing for Large Language Model Pretraining]
-(https://arxiv.org/abs/2410.17413), applying training data attribution (TDA)
-methods to LLM pretraining.
-Here, you can explore influential pretraining examples identified by our method
-for factual predictions, factual errors, commonsense reasoning, arithmetic, and
-open-ended generation for an 8B-parameter LLM.
+This repo contains data files and demo code for our paper,
+[Scalable Influence and Fact Tracing for Large Language Model Pretraining][tda-paper],
+applying training data attribution (TDA) methods to LLM pretraining.
 
-Live demo: [link](placeholder)
+A [hosted demo][tda-demo] lets you explore influential pretraining examples
+identified by our method for factual predictions, factual errors, commonsense
+reasoning, arithmetic, and open-ended generation for an 8B-parameter LLM.
 
 ## Data files
 
@@ -17,14 +15,13 @@ results for a variety of tasks. All files are at
 `https://storage.googleapis.com/tda-resources/2410.17413/public/`. Specifically,
 we release the following data files:
 
-* [T-REx](https://hadyelsahar.github.io/t-rex/) sentences:
+* [T-REx][trex] sentences:
 `https://storage.googleapis.com/tda-resources/2410.17413/public/trex_sentences.jsonl*`<br>
 These are the Wikipedia abstract sentences from T-REx, including:
 `sentence_id`, `text`, `abstract_uri`, `sent_idx_in_abst`, and `fact_triples`
 (relevant facts triples that are contained in the sentence).
 
-* Filtered [T-REx](https://hadyelsahar.github.io/t-rex/) fact triples used as
-evaluation queries (1.2M):
+* Filtered [T-REx][trex] fact triples used as evaluation queries (1.2M):
 `https://storage.googleapis.com/tda-resources/2410.17413/public/trex_facts.jsonl`<br>
 Sample of 5.4K facts used for TDA eval:
 `https://storage.googleapis.com/tda-resources/2410.17413/public/trex_facts_sample.jsonl`<br>
@@ -72,11 +69,25 @@ tasks.
 
 ## Running your own demo
 
-TODO: add info for running demo here.
+We recommend using the [hosted demo][tda-demo], but you may also run the demo
+server locally using [Git][git], [Node.js][nodejs], and [NPM][npm].
+
+```sh
+# Clone the repo
+git clone git@github.com:pair-code/pretraining-tda
+cd pretraining-tda
+
+# Install and build the website with Node.js
+npm install
+npm run website
+
+# Serve the website locally
+npm serve
+```
 
 ## Citing this work
 
-```latex
+```bibtex
 @article{chang2024scalable,
   title={Scalable Influence and Fact Tracing for Large Language Model Pretraining},
   author={Chang, Tyler A. and Rajagopal, Dheeraj and Bolukbasi, Tolga and Dixon, Lucas and Tenney, Ian},
@@ -105,3 +116,10 @@ either express or implied. See the licenses for the specific language governing
 permissions and limitations under those licenses.
 
 This is not an official Google product.
+
+[git]: https://git-scm.com/
+[nodejs]: https://nodejs.org/
+[npm]: https://www.npmjs.com/
+[tda-demo]: https://pair-code.github.io/pretraining-tda/demo
+[tda-paper]: https://arxiv.org/abs/2410.17413
+[trex]: https://hadyelsahar.github.io/t-rex/
