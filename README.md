@@ -82,7 +82,7 @@ npm install
 npm run website
 
 # Serve the website locally
-npm serve
+npm run serve
 ```
 
 ## Citing this work
