@@ -32,7 +32,7 @@ import {ExampleClicked, ExampleInfo} from './data_index';
 import {DataLoaderService, uploadedFileManager} from './data_loader';
 import {styles as litStyles} from './elements/shared_styles.css';
 import {type TDAExample} from './example_view';
-import {JSONL_PRESETS} from './presets';
+import {DEFAULT_PRESET, JSONL_PRESETS} from './presets';
 import {makeEndpointURL, URLService} from './utils';
 
 interface AppMetadata {
@@ -121,8 +121,7 @@ export class TDAApp extends MobxLitElement {
     if (Object.keys(this.metadata.defaultJsonlPaths ?? {}).length === 0) {
       this.metadata.defaultJsonlPaths = Object.assign({}, JSONL_PRESETS);
     }
-    this.jsonlPath =
-      Object.values(this.metadata.defaultJsonlPaths ?? {})?.[0] ?? '';
+    this.jsonlPath = this.metadata.defaultJsonlPaths?.[DEFAULT_PRESET] ?? '';
 
     this.urlService.syncParam(
       'jsonl_path',
@@ -579,19 +578,19 @@ export class TDAApp extends MobxLitElement {
           <div class='preset-links'>
             <label>Presets:</label>
             ${renderPreset('(no filter)', '')}
-            ${renderPreset('Correct', 'ex.is_correct')}
+            ${renderPreset('Correct', 'ex.is_8b_correct')}
             ${
         renderPreset(
             'Correct and Confident',
-            'ex.is_correct && ex.model_confidence > 0.5')}
+            'ex.is_8b_correct && ex["8b_confidence"] > 0.5')}
             ${
         renderPreset(
             'Correct, Confident, and Common',
-            'ex.is_correct && ex.model_confidence > 0.5 && ex.frequency_bucket >= 3')}
-            ${renderPreset('Common (3,4,5)', 'ex.frequency_bucket >= 3')}
-            ${renderPreset('Very Common (4,5)', 'ex.frequency_bucket >= 4')}
-            ${renderPreset('Most Common (5)', 'ex.frequency_bucket >= 5')}
-            ${renderPreset('Confident (>0.5)', 'ex.model_confidence > 0.5')}
+            'ex.is_8b_correct && ex["8b_confidence"] > 0.5 && ex.c4_frequency_bucket >= 3')}
+            ${renderPreset('Common (3,4,5)', 'ex.c4_frequency_bucket >= 3')}
+            ${renderPreset('Very Common (4,5)', 'ex.c4_frequency_bucket >= 4')}
+            ${renderPreset('Most Common (5)', 'ex.c4_frequency_bucket >= 5')}
+            ${renderPreset('Confident (>0.5)', 'ex["8b_confidence"] > 0.5')}
           </div>
         </div>
       </div>

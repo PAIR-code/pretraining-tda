@@ -115,7 +115,8 @@ export class DataLoaderService {
     const index: ExampleInfo[] = filteredExamples.map((ex) => {
       const entry: ExampleInfo = {
         id: `${ex['_id']}`,
-        displayName: ex['trex_id'],
+        // Support older files that used 'trex_id' as the field name.
+        displayName: ex['example_id'] ?? ex['trex_id'],
         description: `${ex['inputs_plaintext']} ${ex['targets_plaintext']}`,
         metrics: {},
       };

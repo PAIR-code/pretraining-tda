@@ -113,12 +113,16 @@ export class TDAExampleView extends MobxLitElement {
   }
 
   renderDecoderSamples() {
-    const samples = this.example?.['temperature_samples'] ?? [];
+    const label = this.example?.['8b_generations'] ? '8B Model Samples' :
+                                                     'Decoder Samples';
+    // Support older files that used 'temperature_samples' as the field name.
+    const samples = this.example?.['8b_generations'] ??
+        this.example?.['temperature_samples'] ?? [];
     if (samples.length === 0) {
       // prettier-ignore
       return html`
         <div class='example-samples'>
-          <label>Decoder Samples</label>
+          <label>${label}</label>
           <div class='value value-missing'>undefined</div>
         </div>
       `;
@@ -131,14 +135,15 @@ export class TDAExampleView extends MobxLitElement {
     // prettier-ignore
     return html`
       <div class='example-samples'>
-        <label @click=${toggleExpandSamples}>Decoder Samples
+        <label @click=${toggleExpandSamples}>${label}
           <span class='material-icon-outlined'>
             ${this.expandSamples ? 'unfold_less' : 'unfold_more'}
           </span>
         </label>
         <div class='value'>
-          ${this.expandSamples ? samples.map((s: string)=> html`${s}<br>`)
-                              : samples.join(', ')}
+          ${
+        this.expandSamples ? samples.map((s: string) => html`${s}<br>`) :
+                             samples.join(', ')}
         </div>
       </div>
     `;
@@ -185,14 +190,33 @@ export class TDAExampleView extends MobxLitElement {
       `;
     };
 
-    const correctnessText = this.example['is_correct'] ? 'correct; ' : '';
+    // Support older files that used 'is_correct' as the field name.
+    const isCorrect =
+        this.example['is_8b_correct'] ?? this.example['is_correct'];
+    const correctnessText = isCorrect ? 'correct; ' : '';
+    const confidenceLabel =
+        this.example['8b_confidence'] ? '8B model confidence' : 'confidence';
+    // Support older files that used 'model_confidence' as the field name.
+    const confidenceScore =
+        this.example['8b_confidence'] ?? this.example['model_confidence'];
     const confidenceText =
-      this.example['model_confidence'] != null
-        ? Number(this.example['model_confidence']).toFixed(2)
-        : 'N/A';
-    const predictionText = `${targetText} (${correctnessText} confidence ${confidenceText})`;
+        confidenceScore != null ? Number(confidenceScore).toFixed(2) : 'N/A';
+    const predictionText = `${targetText} (${correctnessText} ${
+        confidenceLabel} = ${confidenceText})`;
 
-    const frequencyText = `${this.example['fact_frequency']} (bucket ${this.example['frequency_bucket']})`;
+    // Support older files that used 'fact_frequency' as the field name.
+    const frequencyCount =
+        this.example['c4_frequency'] ?? this.example['fact_frequency'];
+    // Support older files that used 'frequency_bucket' as the field name.
+    const frequencyBucket =
+        this.example['c4_frequency_bucket'] ?? this.example['frequency_bucket'];
+    const frequencyText = (frequencyCount ?? frequencyBucket) ?
+        `${frequencyCount} (bucket ${frequencyBucket})` :
+        undefined;
+
+    // Support older files that used 'ground_truth' as the field name.
+    const groundTruth =
+        this.example['groundtruth'] ?? this.example['ground_truth'];
 
     const targetTextClass = classMap({
       'target-text': true,
@@ -213,13 +237,17 @@ export class TDAExampleView extends MobxLitElement {
           </span>
         </div>
         <div class='data-grid example-grid'>
-          ${renderAttribute("TREX ID", this.example["trex_id"])}
-          ${renderAttribute("Prompt", this.example["inputs_plaintext"])}
-          ${renderAttribute("Prediction", predictionText)}
-          ${renderAttribute("Ground Truth", this.example["ground_truth"])}
-          ${renderAttribute("Relation", this.example["relation"])}
-          ${renderAttribute("Fact Frequency", frequencyText)}
-          ${renderAttribute("Has TREX Sentence", this.example['has_trex_sentence'])}
+          ${
+        this.example['example_id'] ?
+            renderAttribute('Example ID', this.example['example_id']) :
+            renderAttribute('TREX ID', this.example['trex_id'])}
+          ${renderAttribute('Prompt', this.example['inputs_plaintext'])}
+          ${renderAttribute('Prediction', predictionText)}
+          ${renderAttribute('Ground Truth', groundTruth)}
+          ${renderAttribute('Relation', this.example['relation'])}
+          ${renderAttribute('Fact Frequency', frequencyText)}
+          ${
+        renderAttribute('Has TREX Sentence', this.example['has_trex_sentence'])}
           ${this.renderDecoderSamples()}
         </div>
       </div>
