@@ -15,8 +15,8 @@ Specifically, this includes:
         Appendix A.5 of the paper.
     *   The corpus of 19.6M sentences from T-REx Wikipedia abstracts (Section
         4.2 and 5 of the paper).
-*   [A data viewer app](demo/) to make it easier to look at and
-    analyze sets of retrieved proponents.
+*   [A data viewer app](demo/) to make it easier to look at and analyze sets of
+    retrieved proponents.
 
 ## TDA Output Viewer
 
@@ -47,7 +47,8 @@ https://storage.googleapis.com/tda-resources/2410.17413/public/trex_facts_sample
 
 The full set of 1.2M triples which these are sampled from:
 https://storage.googleapis.com/tda-resources/2410.17413/public/trex_facts.jsonl
-(1GB file)
+(1GB file). Note that the set of 5.4k is **not** sampled uniformly from this;
+see Section 4.2 of the paper for more details.
 
 Each record has the following fields:
 

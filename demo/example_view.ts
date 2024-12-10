@@ -190,19 +190,16 @@ export class TDAExampleView extends MobxLitElement {
       `;
     };
 
-    // Support older files that used 'is_correct' as the field name.
-    const isCorrect =
-        this.example['is_8b_correct'] ?? this.example['is_correct'];
-    const correctnessText = isCorrect ? 'correct; ' : '';
-    const confidenceLabel =
-        this.example['8b_confidence'] ? '8B model confidence' : 'confidence';
+    const confidenceLabel = this.example['8b_confidence'] !== undefined ?
+        '8B model confidence' :
+        'confidence';
     // Support older files that used 'model_confidence' as the field name.
     const confidenceScore =
         this.example['8b_confidence'] ?? this.example['model_confidence'];
     const confidenceText =
         confidenceScore != null ? Number(confidenceScore).toFixed(2) : 'N/A';
-    const predictionText = `${targetText} (${correctnessText} ${
-        confidenceLabel} = ${confidenceText})`;
+    const predictionText =
+        `${targetText} (${confidenceLabel} = ${confidenceText})`;
 
     // Support older files that used 'fact_frequency' as the field name.
     const frequencyCount =

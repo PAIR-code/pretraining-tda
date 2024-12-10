@@ -17,7 +17,8 @@
  * @fileoverview Evaluation metrics.
  */
 
-import {cumSumArray, mean} from './utils';
+// import {cumSumArray, mean} from './utils';
+import {cumSumArray} from './utils';
 
 /**
  * Compute ground-truth metrics for a single proponent list.
@@ -33,10 +34,10 @@ export function getGroundTruthMetrics(isCorrect: boolean[]): {
   const posIndex = isCorrect.indexOf(true);
   return {
     'recall@10': Number(isCorrect.slice(0, 10).includes(true)),
-    'recall@all': Number(isCorrect.includes(true)),
-    'precision@1': precisionAtK[0] ?? 0,
+    // 'recall@all': Number(isCorrect.includes(true)),
+    // 'precision@1': precisionAtK[0] ?? 0,
     'precision@10': precisionAtK[9] ?? 0,
-    'average_precision': precisionAtK ? mean(precisionAtK) : 0,
+    // 'average_precision': precisionAtK ? mean(precisionAtK) : 0,
     'mrr_first': posIndex > -1 ? 1.0 / (1 + posIndex) : 0,
   };
 }
@@ -57,10 +58,10 @@ export function getAISMetrics(
   return {
     'ais_threshold': threshold,
     'ais_recall@10': Number(binaryPreds.slice(0, 10).includes(1)),
-    'ais_recall@all': Number(binaryPreds.includes(1)),
-    'ais_precision@1': precisionAtK[0] ?? 0,
+    // 'ais_recall@all': Number(binaryPreds.includes(1)),
+    // 'ais_precision@1': precisionAtK[0] ?? 0,
     'ais_precision@10': precisionAtK[9] ?? 0,
-    'ais_average_precision': precisionAtK ? mean(precisionAtK) : 0,
+    // 'ais_average_precision': precisionAtK ? mean(precisionAtK) : 0,
     'ais_mrr_first': posIndex > -1 ? 1.0 / (1 + posIndex) : 0,
   };
 }

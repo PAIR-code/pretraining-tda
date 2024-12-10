@@ -19,48 +19,48 @@
 
 export const JSONL_PRESETS: {[name: string]: string} = {
   // T-REx retrievals (Table 1)
-  'trex_retrievals_bm25':
+  'trex_bm25':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_bm25.jsonl',
-  'trex_retrievals_gecko':
+  'trex_gecko':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_gecko.jsonl',
-  'trex_retrievals_trak':
+  'trex_trak':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_trak.jsonl',
-  'trex_retrievals_exp1':
+  'trex_exp1':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_exp1.jsonl',
-  'trex_retrievals_exp2':
+  'trex_exp2':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_exp2.jsonl',
-  'trex_retrievals_exp3':
+  'trex_exp3':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_exp3.jsonl',
-  'trex_retrievals_exp4':
+  'trex_exp4':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_exp4.jsonl',
-  'trex_retrievals_exp5':
+  'trex_exp5':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_exp5.jsonl',
-  'trex_retrievals_trackstar':
+  'trex_trackstar':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/trex_retrievals_trackstar.jsonl',
   // C4 retrievals (Table 2)
-  'c4_trex_retrievals_bm25':
+  'c4_trex_bm25':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_retrievals_bm25.jsonl',
-  'c4_trex_retrievals_gecko':
+  'c4_trex_gecko':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_retrievals_gecko.jsonl',
-  'c4_trex_retrievals_grad_dot':
+  'c4_trex_grad_dot':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_retrievals_grad_dot.jsonl',
-  'c4_trex_retrievals_grad_cosine':
+  'c4_trex_grad_cosine':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_retrievals_grad_cosine.jsonl',
-  'c4_trex_retrievals_trackstar':
+  'c4_trex_trackstar':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_retrievals_trackstar.jsonl',
   // C4 retrievals for incorrect preds
-  'c4_trex_incorrectpred_retrievals_trackstar':
+  'c4_trex_incorrectpred_trackstar':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_incorrectpred_retrievals_trackstar.jsonl',
   // Other tasks
-  'c4_copa_retrievals_trackstar_nontaskspecific':
+  'c4_copa_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_copa_retrievals_trackstar_nontaskspecific.jsonl',
-  'c4_piqa_retrievals_trackstar_nontaskspecific':
+  'c4_piqa_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_piqa_retrievals_trackstar_nontaskspecific.jsonl',
-  'c4_arithmetic_retrievals_trackstar_nontaskspecific':
+  'c4_arithmetic_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl',
-  'c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific':
+  'c4_arithmeticwordproblem_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl',
-  'c4_storygeneration_retrievals_trackstar_nontaskspecific':
+  'c4_storygeneration_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl',
 };
 
