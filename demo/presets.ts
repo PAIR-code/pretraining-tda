@@ -67,4 +67,4 @@ export const JSONL_PRESETS: {[name: string]: string} = {
 /**
  * Name of default preset if not otherwise specified on page load.
  */
-export const DEFAULT_PRESET = 'c4_trex_retrievals_trackstar';
+export const DEFAULT_PRESET = 'c4_trex_trackstar';
