@@ -9914,9 +9914,11 @@ mwc-icon.outlined {
     "c4_piqa_trackstar_nontaskspecific": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_piqa_retrievals_trackstar_nontaskspecific.jsonl",
     "c4_arithmetic_trackstar_nontaskspecific": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl",
     "c4_arithmeticwordproblem_trackstar_nontaskspecific": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl",
-    "c4_storygeneration_trackstar_nontaskspecific": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl"
+    "c4_storygeneration_trackstar_nontaskspecific": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl",
+    // Demo sample to load quickly
+    "c4_demo_30_queries": "https://storage.googleapis.com/tda-resources/2410.17413/public/c4_demo30_retrievals_trackstar.jsonl"
   };
-  var DEFAULT_PRESET = "c4_trex_trackstar";
+  var DEFAULT_PRESET = "c4_demo_30_queries";
 
   // demo/app.ts
   var TDAApp = class extends MobxLitElement {

@@ -62,9 +62,12 @@ export const JSONL_PRESETS: {[name: string]: string} = {
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl',
   'c4_storygeneration_trackstar_nontaskspecific':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl',
+  // Demo sample to load quickly
+  'c4_demo_30_queries':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_demo30_retrievals_trackstar.jsonl',
 };
 
 /**
  * Name of default preset if not otherwise specified on page load.
  */
-export const DEFAULT_PRESET = 'c4_trex_trackstar';
+export const DEFAULT_PRESET = 'c4_demo_30_queries';
