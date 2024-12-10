@@ -223,6 +223,35 @@ export class TDAExampleView extends MobxLitElement {
       'target-highlight': this.highlightTarget === targetText,
     });
 
+    // Simplified view for non-TREX tasks
+    const isTrexTask = this.example['example_id']?.startsWith('trex') ||
+        this.example['trex_id'] != null;
+    if (!isTrexTask) {
+      // prettier-ignore
+      return html`
+        <div class='query-example-container'>
+          <div class='example-header' @click=${stopPropagation}>
+            <strong>Query:</strong>
+            <span class='prompt-text' @mousedown=${onSelectPrompt}
+              @mouseup=${onSelectPrompt}>
+              ${this.example['inputs_plaintext']}
+            </span>
+            <span class=${targetTextClass} @click=${onClickHighlightTarget}>
+              ${targetText}
+            </span>
+          </div>
+          <div class='data-grid example-grid example-grid-simplified'>
+            ${
+          this.example['example_id'] ?
+              renderAttribute('Example ID', this.example['example_id']) :
+              renderAttribute('TREX ID', this.example['trex_id'])}
+            ${renderAttribute('Prompt', this.example['inputs_plaintext'])}
+            ${renderAttribute('Prediction', predictionText)}
+          </div>
+        </div>
+      `;
+    }
+
     // prettier-ignore
     return html`
       <div class='query-example-container'>
@@ -245,7 +274,7 @@ export class TDAExampleView extends MobxLitElement {
           ${renderAttribute('Prediction', predictionText)}
           ${renderAttribute('Ground Truth', groundTruth)}
           ${renderAttribute('Relation', this.example['relation'])}
-          ${renderAttribute('Fact Frequency', frequencyText)}
+          ${renderAttribute('C4 Fact Frequency', frequencyText)}
           ${
         renderAttribute('Has TREX Sentence', this.example['has_trex_sentence'])}
           ${this.renderDecoderSamples()}

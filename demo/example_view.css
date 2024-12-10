@@ -71,6 +71,11 @@
   grid-template-rows: repeat(6, min-content) 1fr;
   grid-template-columns: max-content minmax(400px, 1fr) minmax(100px, 2fr);
 
+  &.example-grid-simplified {
+    grid-template-rows: repeat(2, min-content) 1fr;
+    grid-template-columns: max-content minmax(400px, 1fr);
+  }
+
   .example-attribute {
     grid-row: auto;
     grid-column: span 2;

@@ -15,7 +15,7 @@ Specifically, this includes:
         Appendix A.5 of the paper.
     *   The corpus of 19.6M sentences from T-REx Wikipedia abstracts (Section
         4.2 and 5 of the paper).
-*   [A data viewer app](./#tda-output-viewer) to make it easier to look at and
+*   [A data viewer app](demo/) to make it easier to look at and
     analyze sets of retrieved proponents.
 
 ## TDA Output Viewer
@@ -56,8 +56,7 @@ Each record has the following fields:
 *   `entity0`, `relation`, and `entity1`
 *   `entity0_uri`, `predicate_uri`, and `entity1_uri`
 *   `entity0_alias` and `entity1_alias` - alternative surface forms
-*   `trex_sentences`- mapping to the [T-REx sentences](#t-rex-sentences),
-    below
+*   `trex_sentences`- mapping to the [T-REx sentences](#t-rex-sentences), below
 *   `c4_frequency` - annotation, based on string matching, of how frequently
     this fact appears in the C4 pretraining corpus
 *   `is_repetition` - if the fact contains repetition between entity0 and
@@ -98,8 +97,6 @@ And for T-REx records in Tables 1 and 2 (some fields marked optional):
     estimating confidence in the LLM's answer
 *   `8b_confidence` (as `number`) - fraction of samples from the 8B that match
     the target entity or an alias
-*   `is_8b_correct` - if 8B model generation matches the ground truth or an
-    alias
 *   `c4_frequency` and `c4_frequency_bucket` - frequency of the fact in the C4
     corpus, based on string matching. Bucket groups this into 0, 1, 2, 3, 4, 5,
     with 5 containing the most common facts.
@@ -115,10 +112,14 @@ For all tasks outside of T-REx, we retrieve proponents using TrackStar with the
 non-task-specific Hessian approximation (see Appendix A.5 in the paper). The
 additional tasks have the following optional fields:
 
-*   `is_8b_correct` - if 8B model generation matches the ground truth, for all
-    tasks with a ground truth, i.e. all tasks except story generation
-*   `ground_truth` - for T-REx incorrect predictions, the ground-truth target
-    (entity); all other tasks use ground truth as targets
+*   `is_8b_correct` - for T-REx and arithmetic tasks, whether the 8B model
+    generation matches the ground truth; for PIQA and COPA, whether the 8B model
+    assigns higher probability to the ground truth than to the alternative
+    completion; for story generation, this field is not included (no "ground
+    truth" to compare to).
+*   `groundtruth` - for T-REx incorrect predictions, the ground-truth target
+    (entity); otherwise, this is omitted and `targets_plaintext` is equal to the
+    ground truth answer.
 
 **Table 1: T-REx facts, retrievals from T-REx sentences**
 
@@ -146,13 +147,13 @@ TrackStar            | [c4_trex_retrievals_trackstar.jsonl](https://storage.goog
 
 **Appendix A.5: Additional tasks, retrievals from C4**
 
-Task               | Download .jsonl file                                                                                                                        | Viewer link
--------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -----------
-T-REx incorrect predictions | [c4_trex_incorrectpred_retrievals_trackstar.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_incorrectpred_retrievals_trackstar.jsonl)               | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_trex_incorrectpred_retrievals_trackstar.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_trex_incorrectpred_retrievals_trackstar.jsonl%29)
-COPA                | [c4_copa_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_copa_retrievals_trackstar_nontaskspecific.jsonl)             | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_copa_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_copa_retrievals_trackstar_nontaskspecific.jsonl%29)
-PIQA                | [c4_piqa_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_piqa_retrievals_trackstar_nontaskspecific.jsonl)             | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_piqa_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_piqa_retrievals_trackstar_nontaskspecific.jsonl%29)
-Arithmetic word problems      | [c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl)             | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl%29)
-Simple arithmetic            | [c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl)             | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl%29)
+Task                        | Download .jsonl file                                                                                                                                                                                      | Viewer link
+--------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------
+T-REx incorrect predictions | [c4_trex_incorrectpred_retrievals_trackstar.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_incorrectpred_retrievals_trackstar.jsonl)                                       | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_trex_incorrectpred_retrievals_trackstar.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_trex_incorrectpred_retrievals_trackstar.jsonl%29)
+COPA                        | [c4_copa_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_copa_retrievals_trackstar_nontaskspecific.jsonl)                                   | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_copa_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_copa_retrievals_trackstar_nontaskspecific.jsonl%29)
+PIQA                        | [c4_piqa_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_piqa_retrievals_trackstar_nontaskspecific.jsonl)                                   | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_piqa_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_piqa_retrievals_trackstar_nontaskspecific.jsonl%29)
+Arithmetic word problems    | [c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl) | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl%29)
+Simple arithmetic           | [c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl)                       | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl%29)
 Story generation            | [c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl](https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl)             | [view in app](https://pair-code.github.io/pretraining-tda/demo/?jsonl_path=%5Bc4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl%5D%28https%3A%2F%2Fstorage.googleapis.com%2Ftda-resources%2F2410.17413%2Fpublic%2Fc4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl%29)
 
 ### T-REx sentences
@@ -221,27 +222,27 @@ Commons Attribution 4.0 International License (CC-BY). You may obtain a copy of
 the CC-BY license at: https://creativecommons.org/licenses/by/4.0/legalcode.
 This dataset contains passages from:
 
-* [C4][c4], which are made available under the
-[ODC Attribution License](https://opendatacommons.org/licenses/by/1-0/). You may
-obtain a copy of the ODC Attribution License at:
-https://opendatacommons.org/licenses/by/1-0/.
-* [T-REX][trex], which are made available under the
-[CC-BY-SA-4.0 License](https://creativecommons.org/licenses/by-sa/4.0/deed.en).
-Page IDs for the corresponding Wikipedia articles are included in the data
-files. You may obtain a copy of the CC-BY-SA-4.0 License at:
-https://creativecommons.org/licenses/by-sa/4.0/deed.en
-* [COPA][copa], Copyright (c) 2010, University of Southern California, which are
-made available under the
-[BSD 2-Clause License](https://opensource.org/license/bsd-2-clause). You may
-obtain a copy of the BSD 2-Clause License at:
-https://opensource.org/license/bsd-2-clause.
-* [PIQA][piqa], which are made available under the
-[Academic Free License v3.0](https://opensource.org/license/afl-3-0-php). You
-may obtain a copy of the Academic Free License v3.0 at:
-https://opensource.org/license/afl-3-0-php.
-* [CogComp][cogcomp], Copyright (c) 2022 CogComp, which are made available under
-the [MIT License](https://opensource.org/license/mit). You may obtain a copy of
-the MIT License at: https://opensource.org/license/mit.
+*   [C4][c4], which are made available under the
+    [ODC Attribution License](https://opendatacommons.org/licenses/by/1-0/). You
+    may obtain a copy of the ODC Attribution License at:
+    https://opendatacommons.org/licenses/by/1-0/.
+*   [T-REX][trex], which are made available under the
+    [CC-BY-SA-4.0 License](https://creativecommons.org/licenses/by-sa/4.0/deed.en).
+    Page IDs for the corresponding Wikipedia articles are included in the data
+    files. You may obtain a copy of the CC-BY-SA-4.0 License at:
+    https://creativecommons.org/licenses/by-sa/4.0/deed.en
+*   [COPA][copa], Copyright (c) 2010, University of Southern California, which
+    are made available under the
+    [BSD 2-Clause License](https://opensource.org/license/bsd-2-clause). You may
+    obtain a copy of the BSD 2-Clause License at:
+    https://opensource.org/license/bsd-2-clause.
+*   [PIQA][piqa], which are made available under the
+    [Academic Free License v3.0](https://opensource.org/license/afl-3-0-php).
+    You may obtain a copy of the Academic Free License v3.0 at:
+    https://opensource.org/license/afl-3-0-php.
+*   [CogComp][cogcomp], Copyright (c) 2022 CogComp, which are made available
+    under the [MIT License](https://opensource.org/license/mit). You may obtain
+    a copy of the MIT License at: https://opensource.org/license/mit.
 
 Unless required by applicable law or agreed to in writing, all software and
 materials distributed here under the Apache 2.0 or CC-BY licenses are

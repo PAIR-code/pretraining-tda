@@ -51,6 +51,17 @@ export const JSONL_PRESETS: {[name: string]: string} = {
   // C4 retrievals for incorrect preds
   'c4_trex_incorrectpred_retrievals_trackstar':
       'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_trex_incorrectpred_retrievals_trackstar.jsonl',
+  // Other tasks
+  'c4_copa_retrievals_trackstar_nontaskspecific':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_copa_retrievals_trackstar_nontaskspecific.jsonl',
+  'c4_piqa_retrievals_trackstar_nontaskspecific':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_piqa_retrievals_trackstar_nontaskspecific.jsonl',
+  'c4_arithmetic_retrievals_trackstar_nontaskspecific':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmetic_retrievals_trackstar_nontaskspecific.jsonl',
+  'c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_arithmeticwordproblem_retrievals_trackstar_nontaskspecific.jsonl',
+  'c4_storygeneration_retrievals_trackstar_nontaskspecific':
+      'https://storage.googleapis.com/tda-resources/2410.17413/public/c4_storygeneration_retrievals_trackstar_nontaskspecific.jsonl',
 };
 
 /**
