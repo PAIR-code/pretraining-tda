@@ -15,8 +15,8 @@ Specifically, this includes:
         Appendix A.5 of the paper.
     *   The corpus of 19.6M sentences from T-REx Wikipedia abstracts (Section
         4.2 and 5 of the paper).
-*   [A data viewer app](demo/) to make it easier to look at and analyze sets of
-    retrieved proponents.
+*   [A data viewer app](demo/README.md) to make it easier to look at and analyze
+    sets of retrieved proponents.
 
 ## TDA Output Viewer
 
@@ -35,7 +35,7 @@ retrieved proponents from the training set) from a URL or by uploading from your
 computer; [see below](#tda-method-results) for links to load the experiments
 from the paper. The app runs entirely in-browser and doesn't send your data to
 any server. For more information, see
-[the user guide and app documentation](demo/).
+[the user guide and app documentation](demo/README.md).
 
 ## Data files
 
