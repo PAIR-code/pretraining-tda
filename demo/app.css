@@ -18,6 +18,23 @@
     "footer footer";
 }
 
+#main-loading {
+  grid-area: left-bar / span 2;
+  align-self: center;
+  justify-self: center;
+  min-width: 50%;
+
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #e8e8e8;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+}
+
 md-icon.icon-button {
   --md-icon-size: 16px;
 }

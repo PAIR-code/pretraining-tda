@@ -597,6 +597,18 @@ export class TDAApp extends MobxLitElement {
     `;
   }
 
+  renderLoading() {
+    if (this.mainDataLoaderService.isLoading == null) return null;
+
+    // prettier-ignore
+    return html`
+      <div id='main-loading'>
+        <h2>Loading data</h2>
+        ${this.mainDataLoaderService.isLoading!}
+      </div>
+    `;
+  }
+
   override render() {
     const onExampleClick = (e: CustomEvent<ExampleClicked>) => {
       const id = e.detail.id;
@@ -615,20 +627,23 @@ export class TDAApp extends MobxLitElement {
           ${this.renderDataFilters()}
           ${this.renderTaskFilters()}
         </div>
-        <div id='left-bar'>
-          <tda-data-index .index=${this.filteredDataIndex}
-            selectedId=${this.selectedExId}
-            @example-clicked=${onExampleClick}>
-          </tda-data-index>
-        </div>
-        <div id="example-controls">
-          ${this.renderExampleControls()}
-        </div>
-        <div id="example">
-          <tda-example-view .example=${this.currentExample}
-           .sxsExample=${this.sxsEnabled ? this.sxsExample : undefined}>
-          </tda-example-view>
-        </div>
+        ${this.renderLoading() ??
+          html`
+          <div id='left-bar'>
+            <tda-data-index .index=${this.filteredDataIndex}
+              selectedId=${this.selectedExId}
+              @example-clicked=${onExampleClick}>
+            </tda-data-index>
+          </div>
+          <div id="example-controls">
+            ${this.renderExampleControls()}
+          </div>
+          <div id="example">
+            <tda-example-view .example=${this.currentExample}
+            .sxsExample=${this.sxsEnabled ? this.sxsExample : undefined}>
+            </tda-example-view>
+          </div>`
+        }
         <div id="footer">
           ${this.statusMessage}
         </div>

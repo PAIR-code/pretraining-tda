@@ -66,6 +66,8 @@ export class DataLoaderService {
   @observable jsonlPath: string | null = null;
   @observable examples: TDAExample[] = [];
 
+  @observable isLoading: string | null = null;
+
   pathIsUploadedFile(path: string): boolean {
     return path.startsWith('uploaded:');
   }
@@ -81,6 +83,7 @@ export class DataLoaderService {
       return;
     }
 
+    this.isLoading = path;
     if (this.pathIsUploadedFile(path)) {
       this.examples = await uploadedFileManager.loadExamples(path);
     }
@@ -89,6 +92,7 @@ export class DataLoaderService {
     }
 
     this.jsonlPath = path;
+    this.isLoading = null;
     console.log(
       `DataLoaderService: parsed ${this.examples.length} examples from ${this.jsonlPath}`,
     );

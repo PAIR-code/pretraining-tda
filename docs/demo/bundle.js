@@ -4316,6 +4316,23 @@
     "footer footer";
 }
 
+#main-loading {
+  grid-area: left-bar / span 2;
+  align-self: center;
+  justify-self: center;
+  min-width: 50%;
+
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #e8e8e8;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+}
+
 md-icon.icon-button {
   --md-icon-size: 16px;
 }
@@ -9786,6 +9803,7 @@ mwc-icon.outlined {
     constructor() {
       this.jsonlPath = null;
       this.examples = [];
+      this.isLoading = null;
     }
     pathIsUploadedFile(path) {
       return path.startsWith("uploaded:");
@@ -9800,12 +9818,14 @@ mwc-icon.outlined {
         this.jsonlPath = path;
         return;
       }
+      this.isLoading = path;
       if (this.pathIsUploadedFile(path)) {
         this.examples = await uploadedFileManager.loadExamples(path);
       } else {
         this.examples = await loadRemoteJsonl(path);
       }
       this.jsonlPath = path;
+      this.isLoading = null;
       console.log(
         `DataLoaderService: parsed ${this.examples.length} examples from ${this.jsonlPath}`
       );
@@ -9888,6 +9908,9 @@ mwc-icon.outlined {
   __decorateClass([
     observable
   ], DataLoaderService.prototype, "examples", 2);
+  __decorateClass([
+    observable
+  ], DataLoaderService.prototype, "isLoading", 2);
 
   // demo/presets.ts
   var JSONL_PRESETS = {
@@ -10387,6 +10410,16 @@ mwc-icon.outlined {
       </div>
     `;
     }
+    renderLoading() {
+      if (this.mainDataLoaderService.isLoading == null)
+        return null;
+      return x`
+      <div id='main-loading'>
+        <h2>Loading data</h2>
+        ${this.mainDataLoaderService.isLoading}
+      </div>
+    `;
+    }
     render() {
       const onExampleClick = (e7) => {
         const id2 = e7.detail.id;
@@ -10403,20 +10436,21 @@ mwc-icon.outlined {
           ${this.renderDataFilters()}
           ${this.renderTaskFilters()}
         </div>
-        <div id='left-bar'>
-          <tda-data-index .index=${this.filteredDataIndex}
-            selectedId=${this.selectedExId}
-            @example-clicked=${onExampleClick}>
-          </tda-data-index>
-        </div>
-        <div id="example-controls">
-          ${this.renderExampleControls()}
-        </div>
-        <div id="example">
-          <tda-example-view .example=${this.currentExample}
-           .sxsExample=${this.sxsEnabled ? this.sxsExample : void 0}>
-          </tda-example-view>
-        </div>
+        ${this.renderLoading() ?? x`
+          <div id='left-bar'>
+            <tda-data-index .index=${this.filteredDataIndex}
+              selectedId=${this.selectedExId}
+              @example-clicked=${onExampleClick}>
+            </tda-data-index>
+          </div>
+          <div id="example-controls">
+            ${this.renderExampleControls()}
+          </div>
+          <div id="example">
+            <tda-example-view .example=${this.currentExample}
+            .sxsExample=${this.sxsEnabled ? this.sxsExample : void 0}>
+            </tda-example-view>
+          </div>`}
         <div id="footer">
           ${this.statusMessage}
         </div>
